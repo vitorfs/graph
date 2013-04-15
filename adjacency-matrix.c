@@ -22,7 +22,7 @@
 typedef struct {
   int node_count;
   int arc_count;
-  int** arcs; // -1 represents the lack of adjacency
+  int** arcs; // 0 represents the lack of adjacency
 } Graph;
 
 Graph empty_graph() {
@@ -37,6 +37,19 @@ Graph empty_graph() {
 
 Graph insert_arc(Graph g, int v1, int v2, int weight) {
   g.arcs[v1][v2] = weight;
+  g.arc_count++;
+  
+  return g;
+}
+
+Graph remove_arc(Graph g, int v1, int v2) {
+  if (v1 >= 0 && v1 < g.node_count && v2 >= 0 && v2 < g.node_count) {
+    if (g.arcs[v1][v2] > 0) {
+      g.arcs[v1][v2] = 0;
+      g.arc_count--;
+    }
+  }
+  
   return g;
 }
 
@@ -68,11 +81,14 @@ int main(int argc, char* argv[]) {
 
   for (i = 0 ; i < g.node_count ; i++)
     for (j = 0 ; j < g.node_count ; j++)
-      g.arcs[i][j] = -1;
+      g.arcs[i][j] = 0;
 
   g = insert_arc(g, 0, 1, 5);
   print_graph(g);
   g = insert_arc(g, 2, 3, 10);
+  print_graph(g);
+
+  g = remove_arc(g, 0, 1);
   print_graph(g);
 
   return 0;
