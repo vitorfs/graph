@@ -34,6 +34,8 @@ void empty_graph(Graph* g) {
 void init_graph(Graph* g, int n) {
   int i, j;
   
+  empty_graph(g);
+
   g->node_count = n;
 
   g->arcs = (int**) malloc(n * sizeof(int*));
@@ -43,6 +45,24 @@ void init_graph(Graph* g, int n) {
   for (i = 0 ; i < n ; i++)
     for (j = 0 ; j < n ; j++)
       g->arcs[i][j] = 0;
+}
+
+void free_graph(Graph* g) {
+  free(g);
+}
+
+Graph* transpose_graph(Graph* g) {
+  Graph* transpose = (Graph*) malloc(sizeof(Graph));
+  init_graph(transpose, g->node_count);
+
+  int i, j;
+
+  for (i = 0 ; i < g->node_count ; i++)
+    for (j = 0 ; j < g->node_count ; j++)
+      if (g->arcs[i][j] == 0)
+        transpose->arcs[i][j] = 1;
+
+  return transpose;
 }
 
 int insert_arc(Graph* g, int a1, int a2, int weight) {
@@ -64,12 +84,20 @@ int remove_arc(Graph* g, int a1, int a2) {
   return weight;
 }
 
-Graph* insert_node(Graph* g, int n) {
-  return g;
+int exists_arc(Graph* g, int a1, int a2) {
+  return g->arcs[a1][a2] > 0;
 }
 
-Graph* remove_node(Graph* g, int n) {
-  return g;
+int* get_adjacency(Graph* g, int n) {
+  return NULL;
+}
+
+int insert_node(Graph* g, int n) {
+ 
+}
+
+int remove_node(Graph* g, int n) {
+ 
 }
 
 void print_graph(Graph* g) {
@@ -77,7 +105,7 @@ void print_graph(Graph* g) {
 
   for (i = 0 ; i < g->node_count ; i++) {
     for (j = 0 ; j < g->node_count ; j++) {
-      printf("[%2d]", g->arcs[i][j]);
+      printf("[%d]", g->arcs[i][j]);
     }
     printf("\n");
   }
@@ -87,13 +115,16 @@ void print_graph(Graph* g) {
 int main(int argc, char* argv[]) {
   Graph* g = (Graph*) malloc(sizeof(Graph));
 
-  empty_graph(g);
   init_graph(g, 6);
 
-  insert_arc(g, 0, 1, 5);
+  insert_arc(g, 0, 1, 1);
   print_graph(g);
-  insert_arc(g, 2, 3, 10);
+  insert_arc(g, 2, 3, 1);
   print_graph(g);
+ 
+  Graph* transpose = transpose_graph(g);
+
+  print_graph(transpose);
 
   remove_arc(g, 0, 1);
   print_graph(g);
