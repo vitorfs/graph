@@ -25,40 +25,59 @@ typedef struct {
   int** arcs; // 0 represents the lack of adjacency
 } Graph;
 
-Graph empty_graph() {
-  Graph g;
-
-  g.node_count = 0;
-  g.arc_count = 0;
-  g.arcs = NULL;
-
-  return g;
+void empty_graph(Graph* g) {
+  g->node_count = 0;
+  g->arc_count = 0;
+  g->arcs = NULL;
 }
 
-Graph insert_arc(Graph g, int v1, int v2, int weight) {
-  g.arcs[v1][v2] = weight;
-  g.arc_count++;
+void init_graph(Graph* g, int n) {
+  int i, j;
   
-  return g;
+  g->node_count = n;
+
+  g->arcs = (int**) malloc(n * sizeof(int*));
+  for (i = 0 ; i < g->node_count ; i++)
+    g->arcs[i] = (int*) malloc(n * sizeof(int));
+
+  for (i = 0 ; i < n ; i++)
+    for (j = 0 ; j < n ; j++)
+      g->arcs[i][j] = 0;
 }
 
-Graph remove_arc(Graph g, int v1, int v2) {
-  if (v1 >= 0 && v1 < g.node_count && v2 >= 0 && v2 < g.node_count) {
-    if (g.arcs[v1][v2] > 0) {
-      g.arcs[v1][v2] = 0;
-      g.arc_count--;
-    }
+int insert_arc(Graph* g, int a1, int a2, int weight) {
+  if (a1 >= 0 && a1 < g->node_count && a2 >= 0 && a2 < g->node_count && g->arcs[a1][a2] == 0) {
+    g->arcs[a1][a2] = weight;
+    g->arc_count++;
+    return 0;
   }
-  
+  return -1;
+}
+
+int remove_arc(Graph* g, int a1, int a2) {
+  int weight = -1;
+  if (a1 >= 0 && a1 < g->node_count && a2 >= 0 && a2 < g->node_count && g->arcs[a1][a2] > 0) {
+    weight = g->arcs[a1][a2];
+    g->arcs[a1][a2] = 0;
+    g->arc_count--;
+  }
+  return weight;
+}
+
+Graph* insert_node(Graph* g, int n) {
   return g;
 }
 
-void print_graph(Graph g) {
+Graph* remove_node(Graph* g, int n) {
+  return g;
+}
+
+void print_graph(Graph* g) {
   int i, j;
 
-  for (i = 0 ; i < g.node_count ; i++) {
-    for (j = 0 ; j < g.node_count ; j++) {
-      printf("[%2d]", g.arcs[i][j]);
+  for (i = 0 ; i < g->node_count ; i++) {
+    for (j = 0 ; j < g->node_count ; j++) {
+      printf("[%2d]", g->arcs[i][j]);
     }
     printf("\n");
   }
@@ -66,29 +85,17 @@ void print_graph(Graph g) {
 }
 
 int main(int argc, char* argv[]) {
-  Graph g;
+  Graph* g = (Graph*) malloc(sizeof(Graph));
 
-  g = empty_graph();
-  
-  int i, j;
+  empty_graph(g);
+  init_graph(g, 6);
 
-  g.node_count = 5;
-
-  g.arcs = (int**) malloc(g.node_count * sizeof(int*));
-  for (i = 0 ; i < g.node_count ; i++) {
-    g.arcs[i] = (int*) malloc(g.node_count * sizeof(int));
-  }
-
-  for (i = 0 ; i < g.node_count ; i++)
-    for (j = 0 ; j < g.node_count ; j++)
-      g.arcs[i][j] = 0;
-
-  g = insert_arc(g, 0, 1, 5);
+  insert_arc(g, 0, 1, 5);
   print_graph(g);
-  g = insert_arc(g, 2, 3, 10);
+  insert_arc(g, 2, 3, 10);
   print_graph(g);
 
-  g = remove_arc(g, 0, 1);
+  remove_arc(g, 0, 1);
   print_graph(g);
 
   return 0;
