@@ -21,7 +21,7 @@
 #include "graph.h"
 
 void empty_graph(Graph* g) {
-  g->node_count = 0;
+  g->vertex_count = 0;
   g->arc_count = 0;
   g->arcs = NULL;
 }
@@ -31,10 +31,10 @@ void init_graph(Graph* g, int n) {
   
   empty_graph(g);
 
-  g->node_count = n;
+  g->vertex_count = n;
 
   g->arcs = (int**) malloc(n * sizeof(int*));
-  for (i = 0 ; i < g->node_count ; i++)
+  for (i = 0 ; i < g->vertex_count ; i++)
     g->arcs[i] = (int*) malloc(n * sizeof(int));
 
   for (i = 0 ; i < n ; i++)
@@ -48,12 +48,12 @@ void free_graph(Graph* g) {
 
 Graph* transpose_graph(Graph* g) {
   Graph* transpose = (Graph*) malloc(sizeof(Graph));
-  init_graph(transpose, g->node_count);
+  init_graph(transpose, g->vertex_count);
 
   int i, j;
 
-  for (i = 0 ; i < g->node_count ; i++)
-    for (j = 0 ; j < g->node_count ; j++)
+  for (i = 0 ; i < g->vertex_count ; i++)
+    for (j = 0 ; j < g->vertex_count ; j++)
       if (g->arcs[i][j] == 0)
         transpose->arcs[i][j] = 1;
 
@@ -61,7 +61,7 @@ Graph* transpose_graph(Graph* g) {
 }
 
 int insert_arc(Graph* g, int a1, int a2, int weight) {
-  if (a1 >= 0 && a1 < g->node_count && a2 >= 0 && a2 < g->node_count && g->arcs[a1][a2] == 0) {
+  if (a1 >= 0 && a1 < g->vertex_count && a2 >= 0 && a2 < g->vertex_count && g->arcs[a1][a2] == 0) {
     g->arcs[a1][a2] = weight;
     g->arc_count++;
     return 0;
@@ -71,7 +71,7 @@ int insert_arc(Graph* g, int a1, int a2, int weight) {
 
 int remove_arc(Graph* g, int a1, int a2) {
   int weight = -1;
-  if (a1 >= 0 && a1 < g->node_count && a2 >= 0 && a2 < g->node_count && g->arcs[a1][a2] > 0) {
+  if (a1 >= 0 && a1 < g->vertex_count && a2 >= 0 && a2 < g->vertex_count && g->arcs[a1][a2] > 0) {
     weight = g->arcs[a1][a2];
     g->arcs[a1][a2] = 0;
     g->arc_count--;
@@ -83,23 +83,23 @@ int exists_arc(Graph* g, int a1, int a2) {
   return g->arcs[a1][a2] > 0;
 }
 
-int* get_adjacency(Graph* g, int n) {
+int* get_adjacency(Graph* g, int v) {
   return NULL;
 }
 
-int insert_node(Graph* g, int n) {
+int insert_vertex(Graph* g, int v) {
  
 }
 
-int remove_node(Graph* g, int n) {
+int remove_vertex(Graph* g, int v) {
  
 }
 
 void print_graph(Graph* g) {
   int i, j;
 
-  for (i = 0 ; i < g->node_count ; i++) {
-    for (j = 0 ; j < g->node_count ; j++) {
+  for (i = 0 ; i < g->vertex_count ; i++) {
+    for (j = 0 ; j < g->vertex_count ; j++) {
       printf("[%d]", g->arcs[i][j]);
     }
     printf("\n");

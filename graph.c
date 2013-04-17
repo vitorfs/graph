@@ -20,8 +20,8 @@
 #include <stdlib.h>
 #include "graph.h"
 
-#define INSERT_NODE 1
-#define REMOVE_NODE 2
+#define INSERT_VERTEX 1
+#define REMOVE_VERTEX 2
 #define INSERT_ARC 3
 #define REMOVE_ARC 4
 #define REMOVE_MIN_ARC 5
@@ -32,8 +32,8 @@
 void menu() {
   system("clear");
   printf("Graph Theory\n");
-  printf("[1] Insert Node\n");
-  printf("[2] Remove Node\n");
+  printf("[1] Insert Vertex\n");
+  printf("[2] Remove Vertex\n");
   printf("[3] Insert Arc\n");
   printf("[4] Remove Arc\n");
   printf("[5] Remove Min Arc\n");
