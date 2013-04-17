@@ -18,21 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#define INSERT_NODE 1
-#define REMOVE_NODE 2
-#define INSERT_ARC 3
-#define REMOVE_ARC 4
-#define REMOVE_MIN_ARC 5
-#define TRANSPOSE_GRAPH 6
-#define PRINT_GRAPH 7
-#define EXIT 0
-
-typedef struct {
-  int node_count;
-  int arc_count;
-  int** arcs; // 0 represents the lack of adjacency
-} Graph;
+#include "graph.h"
 
 void empty_graph(Graph* g) {
   g->node_count = 0;
@@ -121,32 +107,3 @@ void print_graph(Graph* g) {
   printf("\n");
 }
 
-void menu() {
-  system("clear");
-  printf("Graph Theory\n");
-  printf("[1] Insert Node\n");
-  printf("[2] Remove Node\n");
-  printf("[3] Insert Arc\n");
-  printf("[4] Remove Arc\n");
-  printf("[5] Remove Min Arc\n");
-  printf("[6] Transpose Graph\n");
-  printf("[7] Print Graph\n");
-  printf("[0] Exit\n");
-}
-
-int main(int argc, char* argv[]) {
-  Graph* g = (Graph*) malloc(sizeof(Graph));
-  int option;
-
-  do {
-    menu();
-    scanf("%d", &option);
-    switch (option) {
-      case PRINT_GRAPH:
-        print_graph(g);
-        break;
-    }
-  } while (option != EXIT);
-
-  return 0;
-}
