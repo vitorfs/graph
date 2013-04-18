@@ -42,16 +42,38 @@ void menu() {
   printf("[0] Exit\n");
 }
 
+void pause() {
+  int ch;
+  while ((ch = getchar()) != '\n' && ch != EOF);
+  printf("Press enter to continue...");
+  getchar();
+}
+
 int main(int argc, char* argv[]) {
   Graph* g = (Graph*) malloc(sizeof(Graph));
-  int option;
+  empty_graph(g);
+
+  int option, v, a1, a2;
 
   do {
     menu();
     scanf("%d", &option);
     switch (option) {
+      case INSERT_VERTEX:
+        printf("How many vertex would you like to insert?\n");
+        scanf("%d", &v);
+        insert_vertex(g, v);
+        break;
+      case INSERT_ARC:
+        printf("First vertex: ");
+        scanf("%d", &a1);
+        printf("Second vertex: ");
+        scanf("%d", &a2);
+        insert_arc(g, a1, a2, 1);
+        break;
       case PRINT_GRAPH:
         print_graph(g);
+        pause();
         break;
     }
   } while (option != EXIT);
