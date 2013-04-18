@@ -60,9 +60,14 @@ int main(int argc, char* argv[]) {
     scanf("%d", &option);
     switch (option) {
       case INSERT_VERTEX:
-        printf("How many vertex would you like to insert?\n");
+        printf("How many vertex would you like to insert? ");
         scanf("%d", &v);
         insert_vertex(g, v);
+        break;
+      case REMOVE_VERTEX:
+        printf("Which vertex would you like to remove? ");
+        scanf("%d", &v);
+        remove_vertex(g, v);
         break;
       case INSERT_ARC:
         printf("First vertex: ");
@@ -71,7 +76,18 @@ int main(int argc, char* argv[]) {
         scanf("%d", &a2);
         insert_arc(g, a1, a2, 1);
         break;
-      case PRINT_GRAPH:
+      case REMOVE_ARC:
+        printf("First vertex: ");
+        scanf("%d", &a1);
+        printf("Second vertex: ");
+        scanf("%d", &a2);
+        remove_arc(g, a1, a2);
+        break;
+      case REMOVE_MIN_ARC:
+        break;
+      case TRANSPOSE_GRAPH:
+        break;
+      case PRINT_GRAPH: 
         print_graph(g);
         pause();
         break;

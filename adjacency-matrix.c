@@ -73,6 +73,7 @@ int remove_arc(Graph* g, int a1, int a2) {
   if (a1 >= 0 && a1 < g->vertex_count && a2 >= 0 && a2 < g->vertex_count && g->arcs[a1][a2] > 0) {
     weight = g->arcs[a1][a2];
     g->arcs[a1][a2] = 0;
+    g->arcs[a2][a1] = 0;
   }
   return weight;
 }
