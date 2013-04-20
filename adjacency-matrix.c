@@ -10,7 +10,7 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  Vitor Freitas (vfs), vitorfs@gmail.com
+ *         Author:  Vitor Freitas (vfs), vitor@freitas.com
  *        Company:  Universidade Federal de Juiz de Fora (UFJF)
  *
  * =====================================================================================
