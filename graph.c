@@ -51,6 +51,7 @@ void pause() {
 
 int main(int argc, char* argv[]) {
   Graph* g = (Graph*) malloc(sizeof(Graph));
+  Graph* tp;
   empty_graph(g);
 
   int option, v, a1, a2;
@@ -86,6 +87,10 @@ int main(int argc, char* argv[]) {
       case REMOVE_MIN_ARC:
         break;
       case TRANSPOSE_GRAPH:
+        tp = transpose_graph(g);
+        print_graph(tp);
+        free(tp);
+        pause();
         break;
       case PRINT_GRAPH: 
         print_graph(g);
