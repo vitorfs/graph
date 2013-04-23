@@ -24,7 +24,7 @@
 #define REMOVE_VERTEX 2
 #define INSERT_ARC 3
 #define REMOVE_ARC 4
-#define REMOVE_MIN_ARC 5
+#define VERTEX_ADJACENCY 5
 #define TRANSPOSE_GRAPH 6
 #define PRINT_GRAPH 7
 #define EXIT 0
@@ -36,7 +36,7 @@ void menu() {
   printf("[2] Remove Vertex\n");
   printf("[3] Insert Arc\n");
   printf("[4] Remove Arc\n");
-  printf("[5] Remove Min Arc\n");
+  printf("[5] Get Vertex Adjacency\n");
   printf("[6] Transpose Graph\n");
   printf("[7] Print Graph\n");
   printf("[0] Exit\n");
@@ -52,6 +52,7 @@ void pause() {
 int main(int argc, char* argv[]) {
   Graph* g = (Graph*) malloc(sizeof(Graph));
   Graph* tp;
+  int* adjacency;
   empty_graph(g);
 
   int option, v, a1, a2;
@@ -84,7 +85,13 @@ int main(int argc, char* argv[]) {
         scanf("%d", &a2);
         remove_arc(g, a1, a2);
         break;
-      case REMOVE_MIN_ARC:
+      case VERTEX_ADJACENCY:
+        printf("Which vertex would you like to verify adjacency?");
+        scanf("%d", &v);
+        adjacency = get_adjacency(g, v);
+        print_adjacency(adjacency);
+        free(adjacency);
+        pause();
         break;
       case TRANSPOSE_GRAPH:
         tp = transpose_graph(g);

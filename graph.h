@@ -34,4 +34,5 @@ int* get_adjacency(Graph* g, int v);
 void insert_vertex(Graph* g, int v);
 int remove_vertex(Graph* g, int v);
 void print_graph(Graph* g);
+void print_adjacency(int* a);
 #endif

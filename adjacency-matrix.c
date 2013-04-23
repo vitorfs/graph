@@ -83,7 +83,19 @@ int exists_arc(Graph* g, int a1, int a2) {
 }
 
 int* get_adjacency(Graph* g, int v) {
-  return NULL;
+  int* adjacency = (int*) malloc(sizeof(int));
+  adjacency[0] = 0; // Using the first position of the pointer to determine the size of the array
+  
+  int i;
+  for (i = 0 ; i < g->vertex_count ; i++) {
+    if (g->arcs[i][v] > 0) {
+      adjacency[0]++;
+      adjacency = (int*) realloc(adjacency, adjacency[0] * sizeof(int));
+      adjacency[adjacency[0]] = i;
+    }
+  }
+
+  return adjacency;
 }
 
 void insert_vertex(Graph* g, int v) {
@@ -145,3 +157,11 @@ void print_graph(Graph* g) {
   printf("\n");
 }
 
+void print_adjacency(int* a) {
+  int i;
+
+  for (i = 1 ; i <= a[0] ; i++)
+    printf("[%d]", a[i]);
+
+  printf("\n");
+}
