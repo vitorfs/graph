@@ -112,7 +112,25 @@ void insert_vertex(Graph* g, int v) {
 }
 
 int remove_vertex(Graph* g, int v) {
- 
+  int i, j;
+
+  for (i = 0 ; i < g->vertex_count ; i++)
+    for (j = v ; j < g->vertex_count - 1 ; j++) {
+      g->arcs[i][j] = g->arcs[i][j + 1];
+    }
+
+  for (i = v ; i < g->vertex_count - 1 ; i++)
+    for (j = 0 ; j < g->vertex_count ; j++)
+      g->arcs[i][j] = g->arcs[i + 1][j];
+
+
+  g->vertex_count--;
+
+  g->arcs = (int**) realloc(g->arcs, g->vertex_count * sizeof(int*));
+
+  for (i = 0 ; i < g->vertex_count ; i++)
+    g->arcs[i] = (int*) realloc(g->arcs[i], g->vertex_count * sizeof(int));
+
 }
 
 void print_graph(Graph* g) {
