@@ -10,8 +10,6 @@ When compiling the program you should choice which implementation you want to us
 
 Adjacency Matrix
 ----------------
-Memory usage: O(n^2)
-
-Verify adjacency between Vi and Vj: O(1)
-
-Visit every arc: O(n^2)
+    Memory usage:     O(n^2)
+    Verify adjacency: O(1)
+    Visit every arc:  O(n^2)
