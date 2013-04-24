@@ -3,7 +3,7 @@
  *
  *       Filename:  graph.c
  *
- *    Description:  Main program to run Graph application
+ *    Description:  Main program to run Adjacency_Matrix application
  *
  *        Version:  1.0
  *        Created:  17/04/2013 10:34:33
@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "graph.h"
+#include "adjacency_matrix.h"
 
 #define INSERT_VERTEX 1
 #define REMOVE_VERTEX 2
@@ -50,8 +50,8 @@ void pause() {
 }
 
 int main(int argc, char* argv[]) {
-  Graph* g = (Graph*) malloc(sizeof(Graph));
-  Graph* tp;
+  Adjacency_Matrix* g = (Adjacency_Matrix*) malloc(sizeof(Adjacency_Matrix));
+  Adjacency_Matrix* tp;
   int* adjacency;
   empty_graph(g);
 
